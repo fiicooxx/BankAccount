@@ -5,40 +5,87 @@ using BankAccount;
 // --- USER CREATE --- //
 List<string> history = new List<string>();
 
-Console.WriteLine("\t Welcome to StoneX Bank!");
-Console.WriteLine("\t--- Create new user ---");
+Console.WriteLine("| Welcome to StoneX Bank! |");
+Console.WriteLine();
+Console.WriteLine("--- REGISTRATION ---");
 Thread.Sleep(1000);
 Console.WriteLine();
 
-Console.WriteLine("Name:");
-var name = Console.ReadLine();
-Console.WriteLine("Login:");
-var login = Console.ReadLine();
-Console.WriteLine("Password:");
-var password = Console.ReadLine();
+string name, repName, userName, repUserName, password, repPassword = string.Empty;
 
-Account account = new Account(name, login, password);
+Console.WriteLine("Create your name: ");
+name = Console.ReadLine();
+Console.WriteLine("Create a username: ");
+userName = Console.ReadLine();
+Console.WriteLine("Create a password ");
+password = Console.ReadLine();
+
+using (StreamWriter sw = new StreamWriter(File.Create("C:\\Users\\Komputer\\Desktop\\login_data.txt")))
+{
+    sw.WriteLine(name);
+    sw.WriteLine(userName);
+    sw.WriteLine(password);
+    sw.Close();
+}
+Account account = new Account(name, userName, password);
 Console.WriteLine("Succesfully added!");
+Thread.Sleep(1000);
+Console.Clear();
+
+// --- USER LOGIN --- //
+login:
+Console.WriteLine("| Welcome to StoneX Bank! |");
+Console.WriteLine();
+Console.WriteLine("--- LOGIN ---");
+Thread.Sleep(1000);
+Console.WriteLine();
+
+Console.WriteLine("Enter your name: ");
+name = Console.ReadLine();
+Console.WriteLine("Enter a username: ");
+userName = Console.ReadLine();
+Console.WriteLine("Enter a password ");
+password = Console.ReadLine();
+
+// please enter here a path possible to make new .txt file so we are able to create new user :)
+using (StreamReader sw = new StreamReader(File.Open("C:\\Users\\Komputer\\Desktop\\login_data.txt", FileMode.Open)))
+{
+    repName = sw.ReadLine();
+    repUserName = sw.ReadLine();
+    repPassword = sw.ReadLine();
+    sw.Close();
+}
+
+if (name == repName && userName == repUserName && password == repPassword)
+{
+    Console.WriteLine("Login successful!");
+}
+else
+{
+    Console.WriteLine("Login failed");
+    Thread.Sleep(1500);
+    Console.Clear();
+    goto login;
+}
 
 Thread.Sleep(1000);
-
 Console.Clear();
 
 // --- OPENS MENU --- //
-Console.WriteLine($"\t    | StoneX Bank Menu |");
+Console.WriteLine($"| StoneX Bank Menu |");
 Console.WriteLine();
-Console.WriteLine($"\tHello {name}!");
+Console.WriteLine($"*>> Hello {name}! <<*");
 Console.WriteLine();
 
 // --- NAVIGATION --- //
 menu:
 Console.WriteLine(
-    "\n \t --- Choose an action ---" +
-    "\n \t 1. Top up your balance" +
-    "\n \t 2. Withdraw money" +
-    "\n \t 3. Check your balance" +
-    "\n \t 4. Transaction history" +
-    "\n \t Press any other key to exit...");
+    "\n --- Choose an action ---" +
+    "\n 1. Top up your balance" +
+    "\n 2. Withdraw money" +
+    "\n 3. Check your balance" +
+    "\n 4. Transaction history" +
+    "\n Press any other key to exit...");
 
 var input = Console.ReadKey();
 var key = input.KeyChar;

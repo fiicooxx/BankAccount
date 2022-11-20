@@ -35,12 +35,18 @@ namespace BankAccount
 
             return this._balance;
         }
-        public bool Deposit(double cash)
+        public bool CheckDeposit(double cash)
         {
             double prevBalance = this._balance;
             this._balance = this._balance + cash;
             if (this._balance == prevBalance + cash) return true;
             else return false;
+        }
+        public double Deposit(double cash)
+        {
+            if (CheckDeposit(cash))
+                return this._balance;
+            else throw new Exception();
         }
     }
 }

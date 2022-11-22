@@ -5,6 +5,9 @@ using BankAccount;
 // --- USER CREATE --- //
 List<string> history = new List<string>();
 
+// please enter here a path possible to make new .txt file so we are able to create new user :)
+string path = "C:\\Users\\Fisix\\OneDrive\\Pulpit\\login_data.txt";
+
 Console.WriteLine("| Welcome to StoneX Bank! |");
 Console.WriteLine();
 Console.WriteLine("--- REGISTRATION ---");
@@ -20,7 +23,7 @@ userName = Console.ReadLine();
 Console.WriteLine("Create a password ");
 password = Console.ReadLine();
 
-using (StreamWriter sw = new StreamWriter(File.Create("C:\\Users\\Komputer\\Desktop\\login_data.txt")))
+using (StreamWriter sw = new StreamWriter(File.Create(path)))
 {
     sw.WriteLine(name);
     sw.WriteLine(userName);
@@ -40,23 +43,20 @@ Console.WriteLine("--- LOGIN ---");
 Thread.Sleep(1000);
 Console.WriteLine();
 
-Console.WriteLine("Enter your name: ");
-name = Console.ReadLine();
-Console.WriteLine("Enter a username: ");
+Console.WriteLine("login: ");
 userName = Console.ReadLine();
-Console.WriteLine("Enter a password ");
+Console.WriteLine("password: ");
 password = Console.ReadLine();
 
-// please enter here a path possible to make new .txt file so we are able to create new user :)
-using (StreamReader sw = new StreamReader(File.Open("C:\\Users\\Komputer\\Desktop\\login_data.txt", FileMode.Open)))
+using (StreamReader sw = new StreamReader(File.Open(path, FileMode.Open)))
 {
-    repName = sw.ReadLine();
+    sw.ReadLine();
     repUserName = sw.ReadLine();
     repPassword = sw.ReadLine();
     sw.Close();
 }
 
-if (name == repName && userName == repUserName && password == repPassword)
+if (userName == repUserName && password == repPassword)
 {
     Console.WriteLine("Login successful!");
 }
@@ -114,24 +114,29 @@ if (int.TryParse(key.ToString(), out value))
 }
 Console.ReadKey(false);
 Console.ReadLine();
+Console.Clear();
 
 // --- METHODS --- //
 void Check(Account account)
 {
+    Console.Clear();
     Console.WriteLine(account.ShowBalance());
 }
 
 void Deposit(Account account, List<string> history)
 {
+    Console.Clear();
     Console.WriteLine("Deposit money: ");
     double cash = Double.Parse(Console.ReadLine());
     account.Deposit(cash);
-    history.Add($"|->|Deposited: {cash}. Current balance: {account.GetBalance()}.");
+    history.Add($"|->| Deposited: {cash}. Current balance: {account.GetBalance()}.");
+    Console.WriteLine("Successfuly deposited!");
 }
 
 void Withdraw(Account account, List<string> history)
 {
-    Console.WriteLine("Withdraw moeny: ");
+    Console.Clear();
+    Console.WriteLine("Withdraw money: ");
     double cash = Double.Parse(Console.ReadLine());
     account.Withdraw(cash);
     history.Add($"|<-| Withdrawn: {cash}. Current balance: {account.GetBalance()}.");
@@ -139,6 +144,7 @@ void Withdraw(Account account, List<string> history)
 
 void ShowHistory(List<string> history)
 {
+    Console.Clear();
     foreach (var transaction in history)
         Console.WriteLine(transaction);
 }

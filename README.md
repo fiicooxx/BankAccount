@@ -1,7 +1,6 @@
 # BankAccount / project
 
-> Bank account management console app as an StoneX's task.
-
+> Bank account management console app.
 ## About the project
 This is a simple application to manage your bank account. It allows you to create an account,<br> login in the system as well as deposit, withdraw, check account current balance and display the history of your activity.
 
